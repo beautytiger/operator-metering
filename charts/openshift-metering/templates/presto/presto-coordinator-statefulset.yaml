@@ -110,6 +110,18 @@ spec:
               name: "{{ .Values.presto.spec.config.azure.secretName | default "presto-azure-credentials" }}"
               key: azure-secret-access-key
 {{- end }}
+{{- if or .Values.presto.spec.config.gcs.secretName .Values.presto.spec.config.gcs.createSecret }}
+        - name: GCS_PRIVATE_KEY_ID
+          valueFrom:
+            secretKeyRef:
+              name: "{{ .Values.presto.spec.config.gcs.secretName | default "presto-gcs-credentials" }}"
+              key: gcs-service-account-privat-key-id
+        - name: GCS_PRIVATE_KEY
+          valueFrom:
+            secretKeyRef:
+              name: "{{ .Values.presto.spec.config.gcs.secretName | default "presto-gcs-credentials" }}"
+              key: gcs-service-account-privat-key
+{{- end }}
 {{- include "presto-common-env" . | indent 8 }}
         volumeMounts:
         - name: presto-etc

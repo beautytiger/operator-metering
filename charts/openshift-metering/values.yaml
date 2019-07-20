@@ -811,6 +811,13 @@ hadoop:
         createSecret: false
         secretName: ""
 
+      gcs:
+        serviceAccountEmail: ""
+        serviceAccountPrivateKeyId: ""
+        serviceAccountPrivateKey: ""
+        createSecret: false
+        secretName: ""
+
     image:
       pullPolicy: Always
       repository: quay.io/openshift/origin-metering-hadoop

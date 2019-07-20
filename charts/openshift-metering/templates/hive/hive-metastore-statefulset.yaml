@@ -67,6 +67,18 @@ spec:
               name: "{{ .Values.hive.spec.config.azure.secretName | default "hive-azure-credentials" }}"
               key: azure-secret-access-key
 {{- end }}
+{{- if or .Values.hive.spec.config.gcs.secretName .Values.hive.spec.config.gcs.createSecret }}
+        - name: GCS_PRIVATE_KEY_ID
+          valueFrom:
+            secretKeyRef:
+              name: "{{ .Values.hive.spec.config.gcs.serviceAccountPrivateKeyId | default "hive-gcs-credentials" }}"
+              key: gcs-service-account-privat-key-id
+        - name: GCS_PRIVATE_KEY
+          valueFrom:
+            secretKeyRef:
+              name: "{{ .Values.hive.spec.config.gcs.serviceAccountPrivateKey | default "hive-gcs-credentials" }}"
+              key: gcs-service-account-private-key
+{{- end }}
         volumeMounts:
         - name: hadoop-config
           mountPath: /hadoop-config
