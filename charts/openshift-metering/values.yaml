@@ -471,6 +471,13 @@ presto:
         createSecret: false
         secretName: ""
 
+      gcs:
+        serviceAccountEmail: ""
+        serviceAccountPrivateKeyId: ""
+        serviceAccountPrivateKey: ""
+        createSecret: false
+        secretName: ""
+
       tls:
         # server cert
         certificate: ""
@@ -643,6 +650,13 @@ hive:
       azure:
         storageAccountName: ""
         secretAccessKey: ""
+        createSecret: false
+        secretName: ""
+
+      gcs:
+        serviceAccountEmail: ""
+        serviceAccountPrivateKeyId: ""
+        serviceAccountPrivateKey: ""
         createSecret: false
         secretName: ""
 

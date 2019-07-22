@@ -133,6 +133,60 @@ _base_storage_overrides:
         hdfs:
           enabled: false
 
+  gcs:
+    storage:
+      hive:
+        # gcs storage defaults
+        gcs:
+          # Intentionally an invalid default name to ensure that this is overridden, and obvious when it's not.
+          container: "-unconfigured-metering-container-name-"
+          serviceAccountEmail: ""
+          serviceAccountPrivateKeyId: ""
+          serviceAccountPrivateKey: ""
+          secretName: ""
+          createSecret: false
+          rootDirectory: ""
+
+
+    presto:
+      spec:
+        config:
+          gcs:
+            serviceAccountEmail: "{{ _storage_spec | json_query('hive.azure.serviceAccountEmail') }}"
+            serviceAccountPrivateKeyId: "{{ _storage_spec | json_query('hive.gcs.serviceAccountPrivateKey'Id) }}"
+            serviceAccountPrivateKey: "{{ _storage_spec | json_query('hive.gcs.serviceAccountPrivateKey') }}"
+            secretName: "{{ _storage_spec | json_query('hive.gcs.secretName') }}"
+            createSecret: "{{ _storage_spec | json_query('hive.gcs.createSecret') }}"
+            rootDirectory: ""
+    hive:
+      spec:
+        config:
+          metastoreWarehouseDir: "wasbs://{{ _storage_spec | json_query('hive.azure.container') }}@{{ _storage_spec | json_query('hive.azure.storageAccountName') }}.blob.core.windows.net{{ _storage_spec | json_query('hive.azure.rootDirectory') | default('/', True) | regex_replace('^\\/?', '/') }}"
+          gcs:
+            serviceAccountEmail: "{{ _storage_spec | json_query('hive.azure.serviceAccountEmail') }}"
+            serviceAccountPrivateKeyId: "{{ _storage_spec | json_query('hive.gcs.serviceAccountPrivateKey'Id) }}"
+            serviceAccountPrivateKey: "{{ _storage_spec | json_query('hive.gcs.serviceAccountPrivateKey') }}"
+            secretName: "{{ _storage_spec | json_query('hive.gcs.secretName') }}"
+            createSecret: "{{ _storage_spec | json_query('hive.gcs.createSecret') }}"
+            rootDirectory: ""
+    hadoop:
+      spec:
+        config:
+          defaultFS: "wasbs://{{ _storage_spec | json_query('hive.azure.container') }}@{{ _storage_spec | json_query('hive.azure.storageAccountName') }}.blob.core.windows.net{{ _storage_spec | json_query('hive.azure.rootDirectory') | default('/', True) | regex_replace('^\\/?', '/') }}"
+          gcs:
+            serviceAccountEmail: "{{ _storage_spec | json_query('hive.azure.serviceAccountEmail') }}"
+            serviceAccountPrivateKeyId: "{{ _storage_spec | json_query('hive.gcs.serviceAccountPrivateKey'Id) }}"
+            serviceAccountPrivateKey: "{{ _storage_spec | json_query('hive.gcs.serviceAccountPrivateKey') }}"
+            secretName: "{{ _storage_spec | json_query('hive.gcs.secretName') }}"
+            createSecret: "{{ _storage_spec | json_query('hive.gcs.createSecret') }}"
+            rootDirectory: ""
+
+        hdfs:
+          enabled: false
+
+
+
+
   hdfs:
     hadoop:
       spec:
