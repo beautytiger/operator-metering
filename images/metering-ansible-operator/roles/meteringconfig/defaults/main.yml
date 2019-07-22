@@ -153,7 +153,7 @@ _base_storage_overrides:
         config:
           gcs:
             serviceAccountEmail: "{{ _storage_spec | json_query('hive.azure.serviceAccountEmail') }}"
-            serviceAccountPrivateKeyId: "{{ _storage_spec | json_query('hive.gcs.serviceAccountPrivateKey'Id) }}"
+            serviceAccountPrivateKeyId: "{{ _storage_spec | json_query('hive.gcs.serviceAccountPrivateKeyId') }}"
             serviceAccountPrivateKey: "{{ _storage_spec | json_query('hive.gcs.serviceAccountPrivateKey') }}"
             secretName: "{{ _storage_spec | json_query('hive.gcs.secretName') }}"
             createSecret: "{{ _storage_spec | json_query('hive.gcs.createSecret') }}"
@@ -164,7 +164,7 @@ _base_storage_overrides:
           metastoreWarehouseDir: "wasbs://{{ _storage_spec | json_query('hive.azure.container') }}@{{ _storage_spec | json_query('hive.azure.storageAccountName') }}.blob.core.windows.net{{ _storage_spec | json_query('hive.azure.rootDirectory') | default('/', True) | regex_replace('^\\/?', '/') }}"
           gcs:
             serviceAccountEmail: "{{ _storage_spec | json_query('hive.azure.serviceAccountEmail') }}"
-            serviceAccountPrivateKeyId: "{{ _storage_spec | json_query('hive.gcs.serviceAccountPrivateKey'Id) }}"
+            serviceAccountPrivateKeyId: "{{ _storage_spec | json_query('hive.gcs.serviceAccountPrivateKeyId') }}"
             serviceAccountPrivateKey: "{{ _storage_spec | json_query('hive.gcs.serviceAccountPrivateKey') }}"
             secretName: "{{ _storage_spec | json_query('hive.gcs.secretName') }}"
             createSecret: "{{ _storage_spec | json_query('hive.gcs.createSecret') }}"
@@ -175,7 +175,7 @@ _base_storage_overrides:
           defaultFS: "wasbs://{{ _storage_spec | json_query('hive.azure.container') }}@{{ _storage_spec | json_query('hive.azure.storageAccountName') }}.blob.core.windows.net{{ _storage_spec | json_query('hive.azure.rootDirectory') | default('/', True) | regex_replace('^\\/?', '/') }}"
           gcs:
             serviceAccountEmail: "{{ _storage_spec | json_query('hive.azure.serviceAccountEmail') }}"
-            serviceAccountPrivateKeyId: "{{ _storage_spec | json_query('hive.gcs.serviceAccountPrivateKey'Id) }}"
+            serviceAccountPrivateKeyId: "{{ _storage_spec | json_query('hive.gcs.serviceAccountPrivateKeyId') }}"
             serviceAccountPrivateKey: "{{ _storage_spec | json_query('hive.gcs.serviceAccountPrivateKey') }}"
             secretName: "{{ _storage_spec | json_query('hive.gcs.secretName') }}"
             createSecret: "{{ _storage_spec | json_query('hive.gcs.createSecret') }}"
@@ -465,11 +465,14 @@ meteringconfig_enable_reporting_aws_billing: "{{ _openshift_reporting_spec.awsBi
 meteringconfig_enable_hdfs: "{{ _hadoop_spec.hdfs.enabled | default(true) }}"
 meteringconfig_create_hadoop_aws_credentials: "{{ _hadoop_spec.config.aws.createSecret | default(false) }}"
 meteringconfig_create_hadoop_azure_credentials: "{{ _hadoop_spec.config.azure.createSecret | default(false) }}"
+meteringconfig_create_hadoop_gcs_credentials: "{{ _hadoop_spec.config.gcs.createSecret | default(false) }}"
+
 
 meteringconfig_create_hive_metastore_pvc: "{{ _hive_spec.metastore.storage.create | default(true) }}"
 meteringconfig_create_hive_shared_volume_pvc: "{{ _hive_spec.config.sharedVolume.enabled and _hive_spec.config.sharedVolume.createPVC | default(false) }}"
 meteringconfig_create_hive_aws_credentials: "{{ _hive_spec.config.aws.createSecret | default(false) }}"
 meteringconfig_create_hive_azure_credentials: "{{ _hive_spec.config.azure.createSecret | default(false) }}"
+meteringconfig_create_hive_gcs_credentials: "{{ _hive_spec.config.gcs.createSecret | default(false) }}"
 
 meteringconfig_create_hive_metastore_tls_secrets: "{{ _hive_spec.metastore.config.tls.enabled and _hive_spec.metastore.config.tls.createSecret | default(false) }}"
 meteringconfig_create_hive_server_metastore_tls_secrets: "{{ _hive_spec.server.config.metastoreTLS.enabled and _hive_spec.server.config.metastoreTLS.createSecret | default(false) }}"
@@ -478,6 +481,7 @@ meteringconfig_create_hive_server_tls_secrets: "{{ _hive_spec.server.config.tls.
 meteringconfig_create_presto_aws_credentials: "{{ _presto_spec.config.aws.createSecret | default(false) }}"
 meteringconfig_create_presto_azure_credentials: "{{ _presto_spec.config.azure.createSecret | default(false) }}"
 meteringconfig_create_presto_hive_metastore_tls_secrets: "{{ _presto_spec.config.connectors.hive.tls.enabled and _presto_spec.config.connectors.hive.tls.createSecret | default(false) }}"
+meteringconfig_create_presto_gcs_credentials: "{{ _presto_spec.config.gcs.createSecret | default(false) }}"
 
 meteringconfig_template_hive_metastore_tls_secret: "{{ _hive_spec.metastore.config.tls.enabled and _hive_spec.metastore.config.tls.createSecret and _hive_spec.metastore.config.tls.secretName != 'hive-metastore-server-tls'}}"
 meteringconfig_template_hive_server_tls_secret: "{{ _hive_spec.server.config.tls.enabled and _hive_spec.server.config.tls.createSecret and _hive_spec.server.config.tls.secretName != 'hive-server-tls'}}"
