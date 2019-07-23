@@ -64,10 +64,15 @@
       <name>fs.gs.impl</name>
       <value>com.google.cloud.hadoop.fs.gcs.GoogleHadoopFileSystem</value>
   </property>
-    <property>
+  <property>
+      <name>fs.AbstractFileSystem.wasb.Impl</name>
+      <value>org.apache.hadoop.fs.azure.Wasb</value>
+  </property>
+  <property>
       <name>fs.gs.impl</name>
       <value>com.google.cloud.hadoop.fs.gcs.GoogleHadoopFileSystem</value>
   </property>
+
   <property>
       <name>fs.AbstractFileSystem.gs.impl</name>
       <value>com.google.cloud.hadoop.fs.gcs.GoogleHadoopFS</value>

@@ -38,7 +38,7 @@
     loop_var: resource
     label: "{{ resource.template_file }}"
   when: template_result.changed and resource is not none
-  no_log: true
+  no_log: false
 
 - name: Create resources
   k8s:
