@@ -155,11 +155,10 @@ _base_storage_overrides:
             serviceAccountPrivateKey: "{{ _storage_spec | json_query('hive.gcs.serviceAccountPrivateKey') }}"
             secretName: "{{ _storage_spec | json_query('hive.gcs.secretName') }}"
             createSecret: "{{ _storage_spec | json_query('hive.gcs.createSecret') }}"
-
     hive:
       spec:
         config:
-          metastoreWarehouseDir: "gs://{{ _storage_spec | json_query('hive.gcs.container') }}"
+          metastoreWarehouseDir: "gs://{{ _storage_spec | json_query('hive.gcs.container') }} }}"
           gcs:
             serviceAccountEmail: "{{ _storage_spec | json_query('hive.gcs.serviceAccountEmail') }}"
             serviceAccountPrivateKeyId: "{{ _storage_spec | json_query('hive.gcs.serviceAccountPrivateKeyId') }}"
@@ -169,7 +168,7 @@ _base_storage_overrides:
     hadoop:
       spec:
         config:
-          defaultFS: "gs://{{ _storage_spec | json_query('hive.gcs.container') }}"
+          defaultFS: "gs://{{ _storage_spec | json_query('hive.gcs.container') }} }}"
           gcs:
             serviceAccountEmail: "{{ _storage_spec | json_query('hive.gcs.serviceAccountEmail') }}"
             serviceAccountPrivateKeyId: "{{ _storage_spec | json_query('hive.gcs.serviceAccountPrivateKeyId') }}"
